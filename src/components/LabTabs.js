@@ -5,6 +5,7 @@ import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
 import './LabTabs.css'
+import CloseIcon from '@mui/icons-material/Close';
 // import Order from './orders/Order.js'
 // import Dashboard from './dashboard/Dashboard';
 // import Home from './Home/Home';
@@ -12,17 +13,19 @@ import './LabTabs.css'
 // import Contacts from './contacts/Contacts';
 import data from './data/data'
 export default function LabTabs() {
-  const [value, setValue] = React.useState('1');
   let currentPath= window.location.pathname;
-  let render=[];
-  let render2=[];
   let tabIndex = data.findIndex((elem) => elem.path === currentPath);
-   if(tabIndex !==-1){
-        render.push(...render,data[tabIndex])
-        render2.push(...render,data[tabIndex])
-        console.log(render)
-        console.log(render2)
+  let initial=  (tabIndex !==-1)?data[tabIndex].id:'1';
+  const [value, setValue] = React.useState(initial);
+  const [render, setRender] = React.useState([]);
+  // let render=[];
+  // let render2=[];
+  React.useEffect(()=>{
     
+
+   if(tabIndex !==-1){
+        setRender([...render, data[tabIndex]])
+        
       }
     else{
       console.log(`page not found`);
@@ -32,7 +35,8 @@ export default function LabTabs() {
 
 
 
-  
+ },[setRender])
+
   const handleChange = (event, newValue) => {
     event.preventDefault();
     setValue(newValue);
@@ -51,9 +55,9 @@ export default function LabTabs() {
             <Tab label="Orders" value="3" />
             <Tab label="Invoies" value="4" />
             <Tab label="Contacts" value="5" /> */}
-            {data.map((ele)=>{
+            {render.map((ele)=>{
               return(
-                <Tab label={ele.name} value={ele.id}/>
+                <Tab key={ele.id} label={ele.name}value={ele.id}/>
               )
             })}
             
@@ -65,9 +69,9 @@ export default function LabTabs() {
         <TabPanel value="4"><Invoices/></TabPanel>
         <TabPanel value="5"><Contacts/></TabPanel> */}
 
-        {data.map((ele)=>{
+       {render.map((ele)=>{
               return(
-                <TabPanel value={ele.id}>{ele.component} </TabPanel>
+               <TabPanel key={ele.id} value={ele.id}>{ele.component} </TabPanel>
               )
             })}
             

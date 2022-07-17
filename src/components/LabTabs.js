@@ -20,6 +20,12 @@ export default function LabTabs() {
  
   // const [value2, setValue2] = React.useState(tabIndex);
   const [render, setRender] = React.useState([]);
+  function setLocalData (data) {
+    localStorage.setItem('array', JSON.stringify(data))
+  }
+  function getLocalData () {
+    JSON.parse(localStorage.getItem('array'))
+  }
   function setInitial () {
     tabIndex = data.findIndex((elem) => elem.path === currentPath);
     initial=  (tabIndex !==-1)?data[tabIndex].id:'1';
@@ -29,6 +35,8 @@ export default function LabTabs() {
     tabIndex = data.findIndex((elem) => elem.path === currentPath);
     return tabIndex
   }
+
+
   React.useEffect(()=>{
    initial = setInitial();
    setValue(initial);
@@ -41,7 +49,8 @@ export default function LabTabs() {
   React.useEffect(()=>{
     tabIndex=setTabIndex();
    if(tabIndex !==-1){
-    console.log(tabIndex)
+    console.log(data[tabIndex])
+        setLocalData([data[tabIndex]])
         setRender(...render,[data[tabIndex]])
         console.log(render);
         

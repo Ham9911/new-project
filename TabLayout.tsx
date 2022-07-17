@@ -16,7 +16,7 @@ import { LayoutRoute } from "../../redux/types";
 import { history } from "../../redux/store";
 import { AppRoutesStatic } from "../AppRouter";
 import {
-  makePathStaticWithParams,
+  fmakePathStaticWithParams,
   getLayoutRoute
 } from "../../helpers/routesHelper";
 

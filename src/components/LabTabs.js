@@ -13,18 +13,37 @@ import CloseIcon from '@mui/icons-material/Close';
 // import Contacts from './contacts/Contacts';
 import data from './data/data'
 export default function LabTabs() {
-  let currentPath= window.location.pathname;
-  let tabIndex = data.findIndex((elem) => elem.path === currentPath);
-  let initial=  (tabIndex !==-1)?data[tabIndex].id:'1';
-  const [value, setValue] = React.useState(initial);
-  const [render, setRender] = React.useState([]);
-  // let render=[];
-  // let render2=[];
-  React.useEffect(()=>{
-    
 
+  let currentPath= window.location.pathname;
+  let tabIndex=-1
+  let initial= '1';
+ 
+  // const [value2, setValue2] = React.useState(tabIndex);
+  const [render, setRender] = React.useState([]);
+  function setInitial () {
+    tabIndex = data.findIndex((elem) => elem.path === currentPath);
+    initial=  (tabIndex !==-1)?data[tabIndex].id:'1';
+    return initial
+  }
+  function setTabIndex () {
+    tabIndex = data.findIndex((elem) => elem.path === currentPath);
+    return tabIndex
+  }
+  React.useEffect(()=>{
+   initial = setInitial();
+   setValue(initial);
+   tabIndex=setTabIndex();
+
+   console.log(initial)
+  }, [currentPath])
+  const [value, setValue] = React.useState(initial);
+  console.log(tabIndex,initial);
+  React.useEffect(()=>{
+    tabIndex=setTabIndex();
    if(tabIndex !==-1){
-        setRender([...render, data[tabIndex]])
+    console.log(tabIndex)
+        setRender(...render,[data[tabIndex]])
+        console.log(render);
         
       }
     else{
@@ -32,10 +51,7 @@ export default function LabTabs() {
     }
 
 
-
-
-
- },[setRender])
+ },[])
 
   const handleChange = (event, newValue) => {
     event.preventDefault();

@@ -15,9 +15,9 @@ export default function LabTabs() {
     let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
     console.log(tabIndex);
     if (tabIndex!==-1) {
-      console.log(allRoutes[tabIndex]);
+      console.log(tabs);
       // setvalues(importData[tabIndex]);
-      setTabs([...tabs, allRoutes[tabIndex]]);
+      setTabs(...tabs, [allRoutes[tabIndex]]);
       // setTabs((data) => [...data, allRoutes[tabIndex]])
     } else {
       console.log(`page not found`);

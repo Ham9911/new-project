@@ -15,7 +15,6 @@ export default function LabTabs() {
     let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
     console.log(tabIndex);
     if (tabIndex!==-1) {
-      console.log(tabs);
       // setvalues(importData[tabIndex]);
       setTabs(...tabs, [allRoutes[tabIndex]]);
       // setTabs((data) => [...data, allRoutes[tabIndex]])

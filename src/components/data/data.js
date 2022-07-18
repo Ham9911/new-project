@@ -4,6 +4,12 @@ import Invoices from "../invoices/Invoices";
 import Contacts from "../contacts/Contacts";
 import Order from "../orders/Order";
 
-  let locations = [{ id:'1', path: "/",name:"Home", component: <Home/> },{ id:'2', path: "/dashboard", name:"Dashboard", component: <Dashboard/> },{id:'3', path: "/order",name:"Order", component: <Order/> },{ id:'4' , path: "/invoices",name:"Invoices" , component: <Invoices/> },{id:'5' , path: "/contacts", name:"contacts",component: <Contacts/> }]; 
-  
-export default locations;
+const allRoutes = [
+  { path: "/", name: "Home", component: <Home /> },
+  { path: "/dashboard", name: "Dashboard", component: <Dashboard /> },
+  { path: "/order", name: "Order", component: <Order /> },
+  { path: "/invoices", name: "Invoices", component: <Invoices /> },
+  { path: "/contacts", name: "contacts", component: <Contacts /> },
+];
+
+export default allRoutes;

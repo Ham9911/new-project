@@ -1,4 +1,4 @@
-import * as React from "react";
+import {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@material-ui/lab/TabContext";
@@ -8,21 +8,24 @@ import "./LabTabs.css";
 import CloseIcon from "@mui/icons-material/Close";
 import allRoutes from "./data/data";
 export default function LabTabs() {
+  
   const currentPath = window.location.pathname;
-  const [tabs, setTabs] = React.useState([]);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  React.useEffect(() => {
+  const [tabs, setTabs] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  
+  useEffect(() => {
     let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
-    console.log(tabIndex);
+
     if (tabIndex!==-1) {
-      // setvalues(importData[tabIndex]);
-      setTabs(...tabs, [allRoutes[tabIndex]]);
-      // setTabs((data) => [...data, allRoutes[tabIndex]])
+      // setTabs([...tabs, allRoutes[tabIndex]]);
+      setTabs((data) =>{ 
+        console.log(data);
+        return [...data, allRoutes[tabIndex]]})
+    
     } else {
       console.log(`page not found`);
     }
     setSelectedIndex(tabIndex);
-    console.log(tabIndex);
   }, [currentPath]);
 
   const handleChange = (event, newValue) => {

@@ -11,16 +11,30 @@ export default function LabTabs() {
   
   const currentPath = window.location.pathname;
   const [tabs, setTabs] = useState([]);
+  const [tabsRender,setTabsRender]=useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  
+ function setLocal(val){
+    localStorage.setItem('tabList',JSON.stringify(val));
+    console.log(`local set`);
+  }
+  function getLocal(){
+   return JSON.parse(localStorage.getItem('tabList'))
+  }
   useEffect(() => {
     let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
 
     if (tabIndex!==-1) {
-      // setTabs([...tabs, allRoutes[tabIndex]]);
-      setTabs((data) =>{ 
-        console.log(data);
-        return [...data, allRoutes[tabIndex]]})
+      let oldData=getLocal();
+      console.log(oldData)
+      let checktabs=oldData.findIndex((elem) => elem.path === allRoutes[tabIndex].path);
+      if(checktabs===-1){
+      setLocal([...oldData,allRoutes[tabIndex]]);  
+      }
+      
+      setTabsRender(oldData);
+      // setTabs((data) =>{ 
+      //   console.log(data);
+      //   return [...data, allRoutes[tabIndex]]})
     
     } else {
       console.log(`page not found`);
@@ -43,16 +57,16 @@ export default function LabTabs() {
             sx={{ borderBottom: 1, borderColor: "divider" }}
           >
             <TabList onChange={handleChange} aria-label="lab API tabs example">
-              {tabs.map((ele, index) => {
-                return <Tab key={index} label={ele.name} value={String(selectedIndex)} />;
+              {tabsRender.map((ele, index) => {
+                return <Tab key={index} label={ele.name} value={String(index)} />;
               })}
             </TabList>
           </Box>
 
-          {tabs.map((ele, index) => {
+          {tabsRender.map((ele, index) => {
             return (
-              <TabPanel key={index} value={String(selectedIndex)}>
-                {ele.component}{" "}
+              <TabPanel key={index} value={String(index)}>
+                {ele.component}
               </TabPanel>
             );  
           })}

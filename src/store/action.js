@@ -1,0 +1,1 @@
+export const renderTabs=(payload)=> {return {type:"SET_TABS",payload:payload}}

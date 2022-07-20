@@ -5,47 +5,36 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import "./LabTabs.css";
+import {useSelector,useDispatch} from "react-redux";
+import { renderTabs } from '../store/action';
+
 // import CloseIcon from "@mui/icons-material/Close";
 import allRoutes from "./data/data";
 export default function LabTabs() {
-  
-  const currentPath = window.location.hash;
-  console.log(currentPath)
+  const dispatch=useDispatch();
+  const mycurrentState=useSelector((state)=>state.setTabs);
+   const currentPath = window.location.pathname;
+
   const [tabs, setTabs] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-//  function setLocal(val){
-//     localStorage.setItem('tabList',JSON.stringify(val));
-//     console.log(`local set`);
-//   }
-//   function getLocal(){
-//    return JSON.parse(localStorage.getItem('tabList'))
-//   }
   useEffect(() => {
     console.log(currentPath)
-    let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
+   
+      let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
+     
+      if (tabIndex!==-1) {
+ 
+        // setTabs([...tabs,allRoutes[tabIndex]]);  
+      } else {
+        console.log(`page not found`);
+      }
+      setSelectedIndex(tabIndex);
 
-    if (tabIndex!==-1) {
-      // let oldData=getLocal();
-      // console.log(oldData)
-      // let checktabs=oldData.findIndex((elem) => elem.path === allRoutes[tabIndex].path);
-      // if(checktabs===-1){
-      setTabs([...tabs,allRoutes[tabIndex]]);  
-      // }
-      
-      // setTabs(oldData);
-      // setTabs((data) =>{ 
-      //   console.log(data);
-      //   return [...data, allRoutes[tabIndex]]})
-    
-    } else {
-      console.log(`page not found`);
-    }
-    setSelectedIndex(tabIndex);
-  }, [currentPath, window.location]);
+  }, [currentPath]);
 
   const handleChange = (event, newValue) => {
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
     setSelectedIndex(newValue);
   };
   useEffect(()=>{

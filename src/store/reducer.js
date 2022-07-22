@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-const initialState = [{abc:"abc"}];
+import Home from "../components/Home/Home";
+const initialState=[]; 
 const setTabs = (state = initialState, action) => {
   if (action.type === "SET_TABS") {
-    console.log(...state);
     return [...state,action.payload];
   }
   return state;

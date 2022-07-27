@@ -30,9 +30,9 @@ export default function LabTabs() {
     console.log(selected);
     let updated=mycurrentState.filter((element)=>{
       console.log(element.name,selected[0].name)
-      console.log( element.name!=selected[0].name);
-      return element.name!=selected[0].name;
+      return element.name!==selected[0].name;
     });
+    setSelectedIndex(selectedIndex-1)
       dispatch(renderAfterDel(updated));
   }
 

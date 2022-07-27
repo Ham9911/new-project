@@ -7,7 +7,7 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import "./LabTabs.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Close as Closebtn } from "@mui/icons-material/";
-import { renderTabs } from "../store/action";
+import { renderTabs,renderAfterDel } from "../store/action";
 import { useLocation } from "react-router-dom";
 import allRoutes from "./data/data";
 export default function LabTabs() {
@@ -30,9 +30,10 @@ export default function LabTabs() {
     console.log(selected);
     let updated=mycurrentState.filter((element)=>{
       console.log(element.name,selected[0].name)
-        return element.name!=selected[0].name;
+      console.log( element.name!=selected[0].name);
+      return element.name!=selected[0].name;
     });
-      dispatch(renderTabs(updated));
+      dispatch(renderAfterDel(updated));
   }
 
 

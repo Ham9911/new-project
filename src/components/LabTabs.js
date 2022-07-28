@@ -7,39 +7,39 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import "./LabTabs.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Close as Closebtn } from "@mui/icons-material/";
-import { renderTabs,renderAfterDel } from "../store/action";
+import { renderTabs, renderAfterDel } from "../store/action";
 import { useLocation } from "react-router-dom";
 import allRoutes from "./data/data";
 export default function LabTabs() {
   const dispatch = useDispatch();
   const mycurrentState = useSelector((state) => state.setTabs);
   const location = useLocation();
-  console.log(location);
   const currentPath = location.hash;
   console.log(mycurrentState);
   // const [tabs, setTabs] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState("0");
   // const [toDel,settoDel]=useState('');
 
-
-  const comptoDel=(input)=>{
-      let selected= mycurrentState.filter((ele)=>{
-      if(ele.id===input)
-      return ele;
+  const comptoDel = (input) => {
+    let selected = mycurrentState.filter((ele) => {
+      if (ele.id === input)
+       return ele;
     });
-    console.log(selected);
-    let updated=mycurrentState.filter((element)=>{
-      console.log(element.name,selected[0].name)
-      return element.name!==selected[0].name;
+    let updatedTabs = mycurrentState.filter((element) => {
+      return element.name !== selected[0].name;
     });
-    setSelectedIndex(selectedIndex-1)
-      dispatch(renderAfterDel(updated));
-  }
+    console.log(updatedTabs.length);
+    if (updatedTabs.length === 0) {
+      setSelectedIndex(0);
+    } else {
+      setSelectedIndex(updatedTabs[updatedTabs.length - 1].id);
+    }
 
+    dispatch(renderAfterDel(updatedTabs));
+  };
 
   useEffect(() => {
     let tabIndex = allRoutes.findIndex((elem) => elem.path === currentPath);
-    console.log(tabIndex);
     let tabAlreadyexist = mycurrentState.findIndex(
       (ele) => ele.path === currentPath
     );
@@ -49,7 +49,7 @@ export default function LabTabs() {
       if (tabIndex !== -1 && tabAlreadyexist === -1) {
         dispatch(renderTabs(allRoutes[tabIndex]));
       } else {
-        console.log(`page not found`);
+        console.log(`${currentPath} not found`);
       }
     }
 
@@ -78,8 +78,13 @@ export default function LabTabs() {
                 return (
                   <Tab
                     key={index}
-                    label={<span>{ele.name} <Closebtn onClick={()=>comptoDel(ele.id)}/> </span>}
-                    onClick={() => console.log("clicked" + ele.id)}
+                    label={
+                      <span>
+                        {ele.name}{" "}
+                        <Closebtn onClick={() => comptoDel(ele.id)} />{" "}
+                      </span>
+                    }
+                    onClick={() => console.log("clicked " + ele.name)}
                     value={String(ele.id)}
                   />
                 );

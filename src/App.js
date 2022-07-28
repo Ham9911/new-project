@@ -1,10 +1,10 @@
 import './App.css';
 import LabTabs from './components/LabTabs';
-import Practice from './components/Practice'
 
 import {
-  BrowserRouter as Router,
+  BrowserRouter as Router
 } from "react-router-dom";
+
  
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
     <div className="App">
     <Router>
      <LabTabs/>
+
      </Router>
     </div>
   );

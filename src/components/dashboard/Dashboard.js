@@ -7,7 +7,7 @@ const Dashboard = () => {
         return ()=>{
             console.log("Dashboard destroyed")
         }
-    })
+    }, [])
   return (
     <div>Dashboard from File</div>
   )

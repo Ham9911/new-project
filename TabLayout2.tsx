@@ -300,7 +300,7 @@ const TabRouter = (props: TabRouterProps) => {
     event.preventDefault();
     const tabPath = tabRoutes[newIndex].actualPath;
     if (tabPath && tabPath !== currentPath) {
-
+F
     }
   };
   const handleReload = ({ actualPath }: LayoutRoute) => {
@@ -384,9 +384,7 @@ const TabRouter = (props: TabRouterProps) => {
  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => updateInstanceTitle(), [instanceTitle, selectedTabIndex]);
-  useEffect(() => {
-    getAllowedPaths().then((resp) => (allowedPathsRef.current = resp));
-  }, []);
+  
 
   return (
     <div className={classes.tabContainer}>

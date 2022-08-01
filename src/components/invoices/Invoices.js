@@ -7,7 +7,7 @@ const Invoices = () => {
         return ()=>{
             console.log("Invoices destroyed")
         }
-    })
+    }, [])
   return (
     <div>Invoices From FIle</div>
   )

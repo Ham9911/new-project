@@ -19,11 +19,10 @@ export default function LabTabs() {
   // const [tabs, setTabs] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState("0");
   // const [toDel,settoDel]=useState('');
-
+  console.log(selectedIndex);
   const comptoDel = (input) => {
     let selected = mycurrentState.filter((ele) => {
-      if (ele.id === input)
-       return ele;
+      if (ele.id === input) return ele;
     });
     let updatedTabs = mycurrentState.filter((element) => {
       return element.name !== selected[0].name;
@@ -52,23 +51,22 @@ export default function LabTabs() {
         console.log(`${currentPath} not found`);
       }
     }
-
     setSelectedIndex(tabIndex);
   }, [currentPath]);
 
   const handleChange = (event, newValue) => {
     event.preventDefault();
-    event.stopPropagation();
+    console.log(newValue);
     setSelectedIndex(newValue);
   };
   useEffect(() => {
     console.log(`New Massage`);
   }, []);
-
+  console.log("currentState", mycurrentState);
   return (
     <div style={{ margin: `10px 50px` }}>
       <Box sx={{ width: "100%", typography: "body2" }}>
-        <TabContext value={String(selectedIndex)}>
+        <TabContext value={String(selectedIndex)} sx={{ display: "none" }}>
           <Box
             className="topBar"
             sx={{ borderBottom: 1, borderColor: "divider" }}
@@ -78,13 +76,8 @@ export default function LabTabs() {
                 return (
                   <Tab
                     key={index}
-                    label={
-                      <span>
-                        {ele.name}{" "}
-                        <Closebtn onClick={() => comptoDel(ele.id)} />{" "}
-                      </span>
-                    }
-                    onClick={() => console.log("clicked " + ele.name)}
+                   
+                    // onClick={() => console.log("clicked " + ele.name)}
                     value={String(ele.id)}
                   />
                 );
@@ -94,8 +87,12 @@ export default function LabTabs() {
 
           {mycurrentState.map((ele, index) => {
             return (
-              <TabPanel key={index} value={String(ele.id)}>
-                {ele.component}
+              <TabPanel
+                key={ele.id}
+                // style={!selectedIndex===ele.id?{display:"none"}:{display:"block"}}
+                value={String(ele.id)}
+              >
+                <ele.component />
               </TabPanel>
             );
           })}
